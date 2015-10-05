@@ -22,7 +22,7 @@ public class MainMenu : MonoBehaviour
 		if (FB.IsLoggedIn)
 		{
 			Util.Log("Already logged in");
-//			OnLoggedIn();
+			OnLoggedIn();
 		}                          
 	}
 
@@ -63,21 +63,16 @@ public class MainMenu : MonoBehaviour
 	{
 		Util.Log("Logged in. ID: " + AccessToken.CurrentAccessToken.UserId);
 		
-//		// Reqest player info and profile picture                                                                           
-//		FB.API("/me?fields=id,first_name,friends.limit(100).fields(first_name,id)", Facebook.HttpMethod.GET, APICallback);  
-//		LoadPicture(Util.GetPictureURL("me", 128, 128),MyPictureCallback);  
+		// Reqest player info and profile picture
 		StartCoroutine("GetPic");
 	}
 
 	IEnumerator GetPic()
 	{
-		string url = "https" + "://graph.facebook.com/"+ AccessToken.CurrentAccessToken.UserId +"/picture";
-		url += "?access_token=" + AccessToken.CurrentAccessToken.TokenString;
-		url += "&type=large";
-		WWW www = new WWW(url);
+		WWW www = new WWW(FbUtil.GetPictureURL("me"));
 		yield return www;
 		Texture2D profilePic = www.texture;
-		profileImage.sprite = Sprite.Create(profilePic, new Rect(0, 0, profilePic.width, profilePic.height), Vector2.zero);
+		profileImage.sprite = Util.GetSprite(profilePic);
 	}
 
 }
