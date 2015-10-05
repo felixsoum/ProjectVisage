@@ -6,9 +6,9 @@
 	
 	public static class FbUtil
 	{
-		public static string GetPictureURL(string facebookID, string type = "large")
+		public static string GetPictureURL(string facebookID, int width, int height)
 		{
-			string url = string.Format("https://graph.facebook.com/{0}/picture?type={1}", facebookID, type);
+			string url = string.Format("https://graph.facebook.com/{0}/picture?width={1}&height={2}", facebookID, width, height, type);
 			url += "&access_token=" + AccessToken.CurrentAccessToken.TokenString;
 			return url;
 		}

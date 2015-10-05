@@ -69,7 +69,7 @@ public class MainMenu : MonoBehaviour
 
 	IEnumerator GetPic()
 	{
-		WWW www = new WWW(FbUtil.GetPictureURL("me"));
+		WWW www = new WWW(FbUtil.GetPictureURL("me", 200, 200));
 		yield return www;
 		Texture2D profilePic = www.texture;
 		profileImage.sprite = Util.GetSprite(profilePic);
