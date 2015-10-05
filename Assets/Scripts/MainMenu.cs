@@ -73,6 +73,7 @@ public class MainMenu : MonoBehaviour
 	{
 		string url = "https" + "://graph.facebook.com/"+ AccessToken.CurrentAccessToken.UserId +"/picture";
 		url += "?access_token=" + AccessToken.CurrentAccessToken.TokenString;
+		url += "&type=large";
 		WWW www = new WWW(url);
 		yield return www;
 		Texture2D profilePic = www.texture;
