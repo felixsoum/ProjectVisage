@@ -8,6 +8,7 @@ using JellySnow;
 public class MainMenu : MonoBehaviour
 {
 	public Image profileImage;
+	public Button playButton;
 
 	private void Awake()
 	{
@@ -41,6 +42,11 @@ public class MainMenu : MonoBehaviour
 		}                                                                                        
 	}
 
+	public void OnClickPlayButton()
+	{
+		Application.LoadLevel( "Game" );
+	}
+
 	public void OnClickLoginButton()
 	{
 		FB.LogInWithReadPermissions (
@@ -57,14 +63,16 @@ public class MainMenu : MonoBehaviour
 		{                                                                                      
 			OnLoggedIn();                                                                      
 		}                                                                                      
-	}    
+	}
 
 	void OnLoggedIn()
 	{
 		Util.Log("Logged in. ID: " + AccessToken.CurrentAccessToken.UserId);
-		
+
 		// Reqest player info and profile picture
 		StartCoroutine("GetPic");
+
+		playButton.interactable = true;
 	}
 
 	IEnumerator GetPic()
