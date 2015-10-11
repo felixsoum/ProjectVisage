@@ -54,10 +54,11 @@ public class Game : MonoBehaviour
 		ShowTargetCard();
 		
 		// Test getting photos
-		FB.API( "me/photos?fields=picture", HttpMethod.GET, OnFB_GetSelfPictures );
-		FB.API( "search?q=a&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
-		FB.API( "search?q=b&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
-		FB.API( "search?q=c&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
+		//FB.API( "me/photos?fields=picture", HttpMethod.GET, OnFB_GetSelfPictures );
+		//FB.API( "search?q=a&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
+		//FB.API( "search?q=b&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
+		//FB.API( "search?q=c&type=user&fields=picture", HttpMethod.GET, OnFB_GetSearchPictures );
+		FB.API( "me/invitable_friends?limit=" + numberOfCards.ToString(), HttpMethod.GET, OnFB_GetFriendPictures );
 	}
 
 	void Update()
@@ -168,6 +169,11 @@ public class Game : MonoBehaviour
 			}
 			StartCoroutine( OnWWW_GetPictures( pictureUrls ) );
 		}
+	}
+
+	private void OnFB_GetFriendPictures( IGraphResult result ) // me/photos?fields=picture
+	{
+		OnFB_GetSearchPictures( result ); //it's the same structure
 	}
 
 	private void OnFB_GetSearchPictures( IGraphResult result ) // search?q={0}&type=user&fields=picture, where {0} is searched string
